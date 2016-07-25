@@ -5,6 +5,7 @@ TO BE EDITED.
 Available defs:
 - f: TO BE EDITED.
 """
+from io import StringIO
 import pandas as pd
 import os
 import tarfile
@@ -25,6 +26,12 @@ def main():
         if '.txt' in member.name:
             f = tar.extractfile(member)
             content = f.read()
+            print(content)
+
+            TESTDATA = StringIO(content.decode('utf-8'))
+
+            df = pd.read_csv(TESTDATA, sep="\t")
+
     tar.close()
 
     # Create new features
