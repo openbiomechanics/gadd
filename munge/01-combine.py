@@ -19,24 +19,40 @@ def main():
     data_dir = os.path.abspath('./data/original')
     zipfile_name = 'gait-data.tar.gz'
     file = os.path.join(data_dir, zipfile_name)
-
+    data = pd.DataFrame()
     tar = tarfile.open(file)
     for member in tar.getmembers():
-        print(member.name)
         if '.txt' in member.name:
             f = tar.extractfile(member)
-            content = f.read()
-            print(content)
+            content = StringIO(f.read().decode('utf-8'))
+            df = pd.read_csv(content, sep="\t",
+                             names = ['time', 'stride_interval'])
+            name = member.name
+            name = name.replace('gait-data/', '')
+            name = name.replace('-si.txt', '')
+            print(name)
+            if '-' in name:
+                trial = name[0]
+                participant = name[1]
+                age = int(name[3:6])
+            else:
+                trial = name[0:2]
+                participant = name[2]
+                age = None
 
-            TESTDATA = StringIO(content.decode('utf-8'))
 
-            df = pd.read_csv(TESTDATA, sep="\t")
+            df['trial'] = trial
+            df['participant'] = participant
+            df['age'] = age
+            print(df.head())
+            data = pd.concat([data, df], axis=0)
 
     tar.close()
 
     # Create new features
 
     # Write out data
+    data.to_csv('./data/prepped/intervals.csv', index=False)
     print("Finished!")
 
 
