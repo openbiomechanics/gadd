@@ -6,7 +6,7 @@ Available defs:
 - f: TO BE EDITED.
 """
 import os
-from zipfile import ZipFile
+import tarfile
 
 
 def main():
@@ -18,6 +18,10 @@ def main():
     zipfile_name = 'gait-data.tar.gz'
     file = os.path.join(data_dir, zipfile_name)
     print(file)
+    x = tarfile.open(file, 'r')
+    for i in x:
+        if '.txt' in i.name:
+            print(i.name)
 
     # Create new features
 
