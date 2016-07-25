@@ -4,7 +4,7 @@ Exploratory Data Analysis
 Something
 ---------
 
-![](report-imgs/Data-Report-All-Stores-unnamed-chunk-1-1.png)
+![](imgs/eda-unnamed-chunk-1-1.png)
 
     #> Source: local data frame [3 x 3]
     #> 
@@ -14,7 +14,7 @@ Something
     #> 2    pd              1.138236          0.16253270
     #> 3     y              1.101055          0.06437903
 
-![](report-imgs/Data-Report-All-Stores-unnamed-chunk-1-2.png)
+![](imgs/eda-unnamed-chunk-1-2.png)
 
 ### Session Info
 

@@ -12,7 +12,7 @@ output:
 ```{r label="settings", echo=FALSE, results='hide'}
 library(knitr)
 knitr::opts_chunk$set(collapse = TRUE, comment = "#>", 
-                      fig.path = "report-imgs/Data-Report-All-Stores-", 
+                      fig.path = "imgs/eda-", 
                       echo = FALSE, message = FALSE, 
                       warning = FALSE, error = FALSE)
 knitr::opts_chunk$set(fig.width = 8, fig.height = 8)
