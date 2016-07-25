@@ -29,7 +29,11 @@ library(scales)
 intervals <- read.csv("../data/prepped/intervals.csv", stringsAsFactors = FALSE)
 ```
 
-## Something
+```{r label="clean-data"}
+intervals <- mutate(intervals, parkinsons = factor(1 * (as.character(trial) == "pd")))
+```
+
+## Visualization
 
 ```{r}
 ggplot(intervals, aes(x = stride_interval)) + 
@@ -45,6 +49,31 @@ intervals %>%
 ggplot(intervals, aes(x = age, y = stride_interval)) + 
   geom_point() + 
   geom_smooth(method = 'lm')
+
+# todo check acf to ensure that stride_interval's aren't autocorrelated
+```
+
+
+## Modeling
+
+```{r}
+model <- glm(parkinsons ~ stride_interval, family = binomial(link = 'logit'), data = intervals)
+summary(model)
+```
+
+```{r}
+train <- filter(intervals, !(participant %in% c(5)))
+test <- filter(intervals, (participant %in% c(5)))
+
+library(randomForest)
+model <- randomForest(parkinsons ~ stride_interval, data = train)
+results <- predict(model, newdata = test)
+test[, "prediction"] <- as.numeric(as.character(results))
+test[, "actual"] <- as.numeric(as.character(test[, "parkinsons"]))
+library(scorer)
+
+acc <- scorer::accuracy_score(y_true = test$actual, y_pred = test$prediction)
+print(paste0("Accuracy out-of-sample: ", round(100 * acc, 2), "%"))
 ```
 
 
