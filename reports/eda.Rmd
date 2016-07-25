@@ -29,10 +29,22 @@ library(scales)
 intervals <- read.csv("../data/prepped/intervals.csv", stringsAsFactors = FALSE)
 ```
 
-## blah
+## Something
 
 ```{r}
+ggplot(intervals, aes(x = stride_interval)) + 
+  geom_histogram() + 
+  facet_wrap(~trial)
 
+intervals %>% 
+  group_by(trial) %>% 
+  summarise(mean(stride_interval), 
+            sd(stride_interval))
+
+
+ggplot(intervals, aes(x = age, y = stride_interval)) + 
+  geom_point() + 
+  geom_smooth(method = 'lm')
 ```
 
 
