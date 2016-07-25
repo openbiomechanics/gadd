@@ -12,9 +12,8 @@ import tarfile
 
 
 def main():
-    print("Started!")
-
     # Load data
+    print("Started!")
     data_dir = os.path.abspath('../data/original')
     zipfile_name = 'gait-data.tar.gz'
     file = os.path.join(data_dir, zipfile_name)
