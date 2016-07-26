@@ -1,5 +1,7 @@
 # Gait in Aging and Disease Database
 
+For more information on the challenge, look [here](https://physionet.org/physiobank/database/gaitdb/).
+
 To create a Conda environment, please enter the following into a shell:
 
 ```shell
